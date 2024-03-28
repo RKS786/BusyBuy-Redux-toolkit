@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useContext} from "react";
 import {NavLink} from "react-router-dom";
 import './Navbar.css'
+import {AuthContext} from "../../context/Auth/AuthContext";
 
 import CartIcon from "../../assets/cart.png";
 import homeIcon from "../../assets/home.png";
@@ -10,7 +11,13 @@ import ordersIcon from "../../assets/orders.png";
 
 
 const Navbar = () => {
-    const isAuthenticated = false;
+    const { user, logout } = useContext(AuthContext);
+  const isAuthenticated = user;
+
+  // Function to logout from app
+  const onLogoutHandler = () => {
+    logout(); // inbuilt firebase function to logout
+  };
 
     return (
         <nav className="navbar">
@@ -57,7 +64,7 @@ const Navbar = () => {
                     )}
                     {isAuthenticated ? (
                         <div className="nav-items">
-                        <NavLink className="nav-links" to="/">
+                        <NavLink className="nav-links" to="/" onClick={onLogoutHandler}>
                             <img
                                 className="nav-items-icons"
                                 src={logoutIcon}

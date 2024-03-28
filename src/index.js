@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import CustomAuthContextProvider from './context/Auth/AuthContext';
 import './index.css';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <CustomAuthContextProvider>
     <App />
-  </React.StrictMode>
+    </CustomAuthContextProvider>
 );
 
 
