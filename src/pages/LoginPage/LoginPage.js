@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import { NavLink } from "react-router-dom";
+import SignInIcon from '../../assets/signin1.gif';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -11,13 +12,12 @@ const LoginPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { user, loading, error, message, login, clearError } = useContext(AuthContext);
-  console.log("user",user)
-  const isAuth = user;
 
   useEffect(() => {
     // If user is authenticated redirect him to home page
-    if (isAuth) {
+    if (user) {
       navigate("/");
+      toast.success(`Welcome, ${user.displayName}`);
     }
 
     // If some error occurs display the error
@@ -41,14 +41,18 @@ const LoginPage = () => {
   };
 
   return (
-    <div className={styles.formContainer}>
+    <div className={styles.container}>
+      <div className={styles.containerLeft}>
+        <img src={SignInIcon} alt=""></img>
+      </div>
+      <div className={styles.containerRight}>
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <h2 className={styles.loginTitle}>Sign In</h2>
         <input
           type="email"
           name="email"
           ref={emailRef}
-        //   className={styles.loginInput}
+          className={styles.loginInput}
           placeholder="Enter Email"
         />
         <input
@@ -72,6 +76,8 @@ const LoginPage = () => {
           <p style={{ fontWeight: "600", margin: 0 }}>Or SignUp instead</p>
         </NavLink>
       </form>
+      </div>
+      
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, {useRef, useEffect, useContext} from "react";
 import {toast} from "react-toastify";
 import {AuthContext} from "../../context/Auth/AuthContext";
 import {useNavigate} from "react-router-dom";
+import SignUpIcon from '../../assets/signup1.gif';
+import styles from "./RegisterPage.module.css";
 
 const RegisterPage = () => {
     //Input refs
@@ -10,14 +12,13 @@ const RegisterPage = () => {
     const passwordRef = useRef();
 
     const navigate = useNavigate();
-    const { user, loading, error, message, signup, clearError } =
-    useContext(AuthContext);
-    const isAuth = user;
+    const { user, loading, error, message, signup, clearError } = useContext(AuthContext);
 
     useEffect(() => {
       // If user is authenticated redirect him to home page
-      if (isAuth) {
+      if (user) {
         navigate("/");
+        toast.success("Sign up Successfull!!");
       }
   
       // If some error occurs display the error
@@ -48,15 +49,21 @@ const RegisterPage = () => {
       };
 
     return (
-        <div>
-            <form onSubmit={onSubmitHandler}>
-                <h2>Sign Up</h2>
-                <input type="text" name="name" ref={nameRef} placeholder="Enter Your Name" ></input>
-                <input type="email" name="email" ref={emailRef} placeholder="Enter your Email"></input>
-                <input type="password" name="password" ref={passwordRef} placeholder="Enter your Password"></input>
-                <button>Sign Up</button>
+        <div className={styles.container}>
+          <div className={styles.containerLeft}>
+            <img src={SignUpIcon} alt=""></img>
+          </div>
+        <div className={styles.containerRight}>
+            <form className={styles.form} onSubmit={onSubmitHandler}>
+                <h2 className={styles.loginTitle}>Sign Up</h2>
+                <input className={styles.loginInput} type="text" name="name" ref={nameRef} placeholder="Enter Your Name" ></input>
+                <input className={styles.loginInput} type="email" name="email" ref={emailRef} placeholder="Enter your Email"></input>
+                <input className={styles.loginInput} type="password" name="password" ref={passwordRef} placeholder="Enter your Password"></input>
+                <button className={styles.loginBtn}>{loading ? "..." : "Sign Up"}</button>
             </form>
         </div>
+        </div>
+        
     )
 }
 

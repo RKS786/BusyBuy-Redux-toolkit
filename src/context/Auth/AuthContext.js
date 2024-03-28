@@ -1,10 +1,11 @@
-import { createContext, useState, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";///Imports necessary functions and hooks from the React library.
 import {auth} from "../../config/firebase";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 
-// Create a new context
+// Create a new context to manage authentication state and provide authentication-related functions
 const AuthContext = createContext();
 
+// Reducer function to manage state updates based on actions dispatched to the context
 const AuthReducer = (state, action) => {
     switch (action.type) {
       case "LOGIN_SUCCESS":
@@ -63,8 +64,9 @@ const AuthReducer = (state, action) => {
     }
   };
 
+// Custom authentication context provider component
 function CustomAuthContextProvider({ children }) {
-    // const auth = getAuth();
+    // Initialize authentication context state
     const initialState = {
         user: null,
         error: false,
@@ -72,14 +74,15 @@ function CustomAuthContextProvider({ children }) {
         loading: false,
       };
 
+    // Use reducer hook to manage state updates based on actions
     const [state, dispatch] = useReducer(AuthReducer, initialState);
 
-     // Sets the authenticated user
-  const setAuthUser = (user) => {
-    dispatch({ type: "SET_AUTH_USER", payload: user });
-  };
+    // Function to set authenticated user in the context
+    const setAuthUser = (user) => {
+      dispatch({ type: "SET_AUTH_USER", payload: user });
+    };
   
-
+    // Function to sign up a new user
     const signup = async (formData) => {
         dispatch({ type: "TOGGLE_LOADING" });
         try {
@@ -101,6 +104,7 @@ function CustomAuthContextProvider({ children }) {
         }
       };
 
+      // Function to log in a user
       const login = async (email, password) => {
         dispatch({ type: "TOGGLE_LOADING" });
         try {
@@ -116,6 +120,7 @@ function CustomAuthContextProvider({ children }) {
         }
       };
 
+      // Function to log out a user
       const logout = async () => {
         try {
           const res = await signOut(auth);
@@ -126,6 +131,7 @@ function CustomAuthContextProvider({ children }) {
         }
       };
 
+      // Function to clear error messages
       const clearError = () => {
         dispatch({ type: "CLEAR_ERROR_MESSAGE" });
       };
@@ -156,5 +162,6 @@ function CustomAuthContextProvider({ children }) {
       );
 
 }
+// Export authentication context and provider component
 export {AuthContext};
 export default CustomAuthContextProvider;
