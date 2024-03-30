@@ -9,9 +9,10 @@ import {AuthContext} from "./context/Auth/AuthContext";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import {auth} from "./config/firebase";
+import ProductContextProvider from "./context/Products/ProductContext";
+
 
 function App() {
-  // const auth = getAuth();
 
   const { setAuthUser } = useContext(AuthContext);
 
@@ -19,6 +20,7 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log("user in app.js",user.displayName);
         setAuthUser(user);
       }
     });
@@ -26,6 +28,7 @@ function App() {
 
   return (
     <div className="App">
+      <ProductContextProvider>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -44,6 +47,7 @@ function App() {
           <Route path="/signin" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
+      </ProductContextProvider>
     </div>
   );
 }
