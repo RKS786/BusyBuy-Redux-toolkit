@@ -3,6 +3,7 @@ import styles from "./HomePage.module.css";
 import ProductList from "../../components/Product/ProductList/ProductList";
 import {ProductsContext} from "../../context/Products/ProductContext";
 import FilterSidebar from "../../components/FilterSidebar/FilterSidebar";
+import Loader from "../../UI/Loader";
 
 const HomePage = () => {
     const [query, setQuery] = useState("");
@@ -27,9 +28,9 @@ const HomePage = () => {
     }, [priceRange, query, categories]);
 
     // Display loader while products are fetching
-    //   if (loading) {
-    //     return <Loader />;
-    //   }
+      if (loading) {
+        return <Loader />;
+      }
 
     return (
         <>
