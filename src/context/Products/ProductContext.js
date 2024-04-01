@@ -57,14 +57,11 @@ const ProductContextProvider = ({ children }) => {
       dispatch({ type: "TOGGLE_LOADING" });
       const productsRef = collection(db, "products");
 
-      console.log("productRef",productsRef);
-
       const productsSnapshot = await getDocs(productsRef);
 
       const productsData = productsSnapshot.docs.map((doc) => ({
         ...doc.data(),
       }));
-      console.log("products",productsData);
 
       dispatch({ type: "SET_PRODUCTS", payload: productsData });
     } catch (error) {

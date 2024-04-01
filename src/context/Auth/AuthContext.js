@@ -140,7 +140,7 @@ function CustomAuthContextProvider({ children }) {
         dispatch({ type: "TOGGLE_LOADING" });
       };
     
-
+      
       // Provide the context value to the children components
       return (
         <AuthContext.Provider

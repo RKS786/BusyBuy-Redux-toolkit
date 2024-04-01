@@ -4,12 +4,13 @@ import styles from "./ProductList.module.css";
 
 const ProductList = ({
   products,
-  style,
   onCart,
-  removeProductFromCart,
-  updateProductQuantity,
-  filterProductFromState,
+  removeFromCartState,
+  calculateTotalPrice,
+  setTotalPrice
+  
 }) => {
+
   // Component to display the product list
   return (
     <div className={styles.productListContainer}>
@@ -18,10 +19,10 @@ const ProductList = ({
           <ProductCard
             product={product}
             key={idx}
-            removeProductFromCart={removeProductFromCart}
-            updateProductQuantity={updateProductQuantity}
-            filterProductFromState={filterProductFromState}
             onCart={onCart}
+            removeFromCartState={removeFromCartState}
+            calculateTotalPrice={calculateTotalPrice}
+            setTotalPrice={setTotalPrice}
           />
         );
       })}
