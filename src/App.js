@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {auth} from "./config/firebase";
 import ProductContextProvider from "./context/Products/ProductContext";
 import CartPage from "./pages/CartPage/CartPage";
+import OrdersPage from "./pages/OrdersPage/OrdersPage";
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/signin" element={<LoginPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/myorders" element={<OrdersPage />} />
         </Routes>
       </BrowserRouter>
       </ProductContextProvider>

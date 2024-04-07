@@ -35,7 +35,7 @@ const ProductCard = ({
     }
     try {
       // Update the cart in Firestore
-      const userRef = doc(db, "userCart", user.email);
+      const userRef = doc(db, "usersCarts", user.email);
       const userCartSnapshot = await getDoc(userRef);
       const currentCartData = userCartSnapshot.data();
 
@@ -93,7 +93,7 @@ const ProductCard = ({
     }
     try {
       // Update the cart in Firestore
-      const userRef = doc(db, "userCart", user.email);
+      const userRef = doc(db, "usersCarts", user.email);
       const userCartSnapshot = await getDoc(userRef);
       const currentCartData = userCartSnapshot.data();
 
@@ -138,7 +138,7 @@ const ProductCard = ({
 
   // Function to increase item's quantity
   async function increaseQuant(product) {
-    const userRef = doc(db, "userCart", user.email);
+    const userRef = doc(db, "usersCarts", user.email);
     const userCartSnapshot = await getDoc(userRef);
     const currentCartData = userCartSnapshot.data();
 
@@ -171,7 +171,7 @@ const ProductCard = ({
 
   // Function to decrease item's quantity
   async function decreaseQuant(product) {
-    const userRef = doc(db, "userCart", user.email);
+    const userRef = doc(db, "usersCarts", user.email);
     const userCartSnapshot = await getDoc(userRef);
     const currentCartData = userCartSnapshot.data();
 
