@@ -4,11 +4,7 @@ import styles from "./ProductList.module.css";
 
 const ProductList = ({
   products,
-  onCart,
-  removeFromCartState,
-  calculateTotalPrice,
-  setTotalPrice
-  
+  onCart,  
 }) => {
 
   // Component to display the product list
@@ -20,9 +16,6 @@ const ProductList = ({
             product={product}
             key={idx}
             onCart={onCart}
-            removeFromCartState={removeFromCartState}
-            calculateTotalPrice={calculateTotalPrice}
-            setTotalPrice={setTotalPrice}
           />
         );
       })}

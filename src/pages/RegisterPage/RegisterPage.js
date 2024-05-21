@@ -1,6 +1,7 @@
-import React, {useRef, useEffect, useContext} from "react";
+import React, {useRef, useEffect} from "react";
 import {toast} from "react-toastify";
-import {AuthContext} from "../../context/Auth/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { signup, clearError } from "../../redux/slices/authSlice";
 import {useNavigate} from "react-router-dom";
 import SignUpIcon from '../../assets/signup1.gif';
 import styles from "./RegisterPage.module.css";
@@ -12,7 +13,8 @@ const RegisterPage = () => {
     const passwordRef = useRef();
 
     const navigate = useNavigate();
-    const { user, loading, error, message, signup, clearError } = useContext(AuthContext);
+    const dispatch = useDispatch();
+    const { user, loading, error, message } = useSelector((state) => state.auth);
 
     useEffect(() => {
       // If user is authenticated redirect him to home page
@@ -24,9 +26,9 @@ const RegisterPage = () => {
       // If some error occurs display the error
       if (error) {
         toast.error(message);
-        clearError();
+        dispatch(clearError());
       }
-    }, [error, user, message]);
+    }, [error, user, message, dispatch, navigate]);
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
@@ -45,7 +47,7 @@ const RegisterPage = () => {
         }
     
         // call the signup function
-        await signup({ name: nameVal, email: emailVal, password: passwordVal });
+        dispatch(signup({ name: nameVal, email: emailVal, password: passwordVal }));
       };
 
     return (

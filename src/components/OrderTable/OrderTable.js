@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./OrderTable.module.css";
 
-// Component to display user order in table format
 const OrderTable = ({ order }) => {
-  console.log("order in table",order);
-  
+  console.log("order in table", order);
+
   return (
     <div style={{ textAlign: "center", marginTop: "2rem" }}>
-      {order[0].date && <h2>Ordered On:- {(order[0].date)}</h2>}
+      {order.date && <h2>Ordered On:- {new Date(order.date).toLocaleDateString()}</h2>}
       <table className={styles.table}>
         <thead>
           <tr>
@@ -18,26 +17,23 @@ const OrderTable = ({ order }) => {
           </tr>
         </thead>
         <tbody>
-          {order.map((product, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{product.title.slice(0, 25) + "..."}</td>
-                <td>{`₹ ${product.price} `}</td>
-                <td>{`${product.quantity} `}</td>
-                <td>{`₹ ${product.quantity * product.price}`}</td>
-              </tr>
-            );
-          })}
-          <tr></tr>
+          {order.products.map((product, idx) => (
+            <tr key={idx}>
+              <td>{product.title}</td>
+              <td>{`₹ ${product.price}`}</td>
+              <td>{`${product.quantity}`}</td>
+              <td>{`₹ ${product.quantity * product.price}`}</td>
+            </tr>
+          ))}
         </tbody>
-        <tr className={styles.totalPrice}>
-          <td>
-            {/* Display total price of products for that particular order */}
-            {`₹ ${order.reduce((acc, currentProduct) => {
-              return acc + currentProduct.price * currentProduct.quantity;
-            }, 0)}`}
-          </td>
-        </tr>
+        <tfoot>
+          <tr className={styles.totalPrice}>
+            <td colSpan="3">Total Price</td>
+            <td>
+              {`₹ ${order.products.reduce((acc, currentProduct) => acc + currentProduct.price * currentProduct.quantity, 0)}`}
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   );

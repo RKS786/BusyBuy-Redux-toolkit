@@ -1,6 +1,7 @@
-import React, { useRef, useContext, useEffect } from "react";
-import {AuthContext} from "../../context/Auth/AuthContext";
+import React, { useRef, useEffect } from "react";
+import { login, clearError } from "../../redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import { NavLink } from "react-router-dom";
@@ -8,14 +9,14 @@ import SignInIcon from '../../assets/signin1.gif';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { user, loading, error, message, login, clearError } = useContext(AuthContext);
+  const { user, loading, error, message } = useSelector((state) => state.auth);
 
   useEffect(() => {
     // If user is authenticated redirect him to home page
-    if (user) {
+    if (user && user.displayName) {
       navigate("/");
       toast.success(`Welcome, ${user.displayName}`);
     }
@@ -23,9 +24,9 @@ const LoginPage = () => {
     // If some error occurs display the error
     if (error) {
       toast.error(message);
-      clearError();
+      dispatch(clearError());
     }
-  }, [error, user]);
+  }, [error, user, dispatch, message, navigate]);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ const LoginPage = () => {
       return toast.error("Please enter valid data!");
     }
 
-    await login(emailVal, passwordVal);
+    dispatch(login({email: emailVal, password: passwordVal}));
   };
 
   return (

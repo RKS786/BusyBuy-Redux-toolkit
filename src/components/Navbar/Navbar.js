@@ -1,8 +1,8 @@
-import React,{useContext} from "react";
+import React from "react";
 import {NavLink} from "react-router-dom";
 import './Navbar.css'
-import {AuthContext} from "../../context/Auth/AuthContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/slices/authSlice";
 import CartIcon from "../../assets/cart.png";
 import homeIcon from "../../assets/home.png";
 import signInIcon from "../../assets/signin.png";
@@ -11,12 +11,13 @@ import ordersIcon from "../../assets/orders.png";
 
 
 const Navbar = () => {
-    const { user, logout } = useContext(AuthContext);
-  const isAuthenticated = user;
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.user);
+    const isAuthenticated = user;
 
-  // Function to logout from app
-  const onLogoutHandler = () => {
-    logout(); // inbuilt firebase function to logout
+    // Function to logout from app
+    const onLogoutHandler = () => {
+    dispatch(logout()); // inbuilt firebase function to logout
   };
 
     return (
