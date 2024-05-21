@@ -1,7 +1,7 @@
 
 ## BusyBuy - E-Commerce Web Application
 
-BusyBuy is a web application designed for customers of an e-commerce business. It provides various features to enhance the shopping experience for users. Below is an overview of the features and functionalities of BusyBuy:
+BusyBuy is a comprehensive web application designed to enhance the shopping experience for users of an e-commerce platform. This version of BusyBuy leverages Redux Toolkit for efficient global state management.
 
 ### Features:
 
@@ -44,6 +44,7 @@ BusyBuy is a web application designed for customers of an e-commerce business. I
 
 - React
 - Firebase (Authentication, Firestore)
+- Redux Toolkit (for global state management)
 - React Router
 - react-spinners
 - react-toastify
@@ -62,4 +63,3 @@ BusyBuy is a web application designed for customers of an e-commerce business. I
 Feel free to contribute to BusyBuy by submitting bug reports, feature requests, or pull requests!
 
 Enjoy your shopping experience with BusyBuy! 🛒🚀
->>>>>>> 800f37a63902ea47f037af73ba461645f77965ce
